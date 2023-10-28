@@ -20,18 +20,18 @@ window.onload = init;
 
 //Start-funktion
 function init() {
-    console.log("initierar...");
 
     //Avaktiverar lägg till-knappen
     addToDoButtonEl.disabled = true;
 
     //läs in lista
     loadList();
+
+
 }
 
 //kontrollera input
 function checkInput() {
-    console.log("Kontrollerar input...");
 
     let input = addNewToDoEl.value;
 
@@ -47,7 +47,6 @@ function checkInput() {
 
 //Lägg till kurs
 function newToDo() {
-    console.log("Lägger till att göra...")
 
     //Skapar ny "att göra"- text
     let input = addNewToDoEl.value;
@@ -58,6 +57,7 @@ function newToDo() {
 
     newEl.addEventListener("click", function (e) {
         e.target.remove();
+        saveToDo();     //Sparar listan i local storage efter en punkt är raderad.
     });
 
     //Lägger till texten i att göra listan
@@ -75,15 +75,14 @@ function newToDo() {
 function clearAll() {
     let element = document.getElementsByClassName("todo");
     while (element.length > 0) {
-      element[0].parentNode.removeChild(element[0]);
+        element[0].parentNode.removeChild(element[0]);
     }
-    
+
     saveToDo();
-  }
+}
 
 //Sparar listan
 function saveToDo() {
-    console.log("Lagrar listan...");
 
     //Läser in "att göra"-listan
     let toDoList = document.getElementsByClassName("todo");
@@ -101,14 +100,10 @@ function saveToDo() {
 
     //Lagrar vår string på local storage
     localStorage.setItem("list", jsonStr)
-
-    //Kan tas bort
-    console.log(tempArr);
 }
 
 //Läs in kurser
 function loadList() {
-    console.log("Läser in listan...")
 
     //Hämtar vår json string och konverterar den tillbaka till en array
     let toDoList = JSON.parse(localStorage.getItem("list"));
@@ -133,5 +128,4 @@ function loadList() {
         });
 
     }
-    console.log(toDoList);
 }
